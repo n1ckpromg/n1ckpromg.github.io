@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Погода в Алматы</title>
+  <style>
+    .current {
+      margin: 20px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
+      width: 500px;
+    }
+    .current h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .clock, .timer {
+      font-size: 20px;
+      margin: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="current">
+  <h2>Погода прямо сейчас в Алматы</h2>
+  <table>
+    <tr><td>Температура:</td><td id="temp"></td></tr>
+    <tr><td>Влажность:</td><td id="humi"></td></tr>
+    <tr><td>Скорость ветра:</td><td id="wind"></td></tr>
+    <tr><td>УФ индекс:</td><td id="uvi"></td></tr>
+  </table>
+</div>
+
+<div class="clock" id="clock"></div>
+<div class="timer" id="timer"></div>
+
+<h2>Прогноз погоды на 7 дней</h2>
+<table id="week-table">
+  <thead>
+    <tr>
+      <th>День</th>
+      <th>Температура (°C)</th>
+      <th>Влажность (%)</th>
+      <th>Скорость ветра (м/с)</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<button onclick="getWeather()">Обновить данные</button>
+
+<script>
+const lat = 43.25;
+const lon = 76.95;
+const apiKey = '30acf5f35276c3c031a529a1f7d3cf20';
+const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=metric&lang=ru&appid=${apiKey}`;
+
+function getWeather() {
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      displayCurrentWeather(data);
+      displayWeeklyWeather(data);
+    })
+    .catch(error => {
+      console.error('Ошибка при получении данных:', error);
+    });
+}
+
+function displayCurrentWeather(data) {
+  const current = data.current;
+  document.getElementById('temp').textContent = `${Math.round(current.temp)}°C`;
+  document.getElementById('humi').textContent = `${current.humidity} %`;
+  document.getElementById('wind').textContent = `${current.wind_speed} м/с`;
+  document.getElementById('uvi').textContent = Math.round(current.uvi);
+}
+
+function displayWeeklyWeather(data) {
+  const days = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+  const table = document.getElementById('week-table').querySelector('tbody');
+  table.innerHTML = ''; // очистить старые строки
+  data.daily.slice(0, 7).forEach(day => {
+    const date = new Date(day.dt * 1000);
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${days[date.getDay()]}</td>
+      <td>${Math.round(day.temp.day)}°C</td>
+      <td>${day.humidity} %</td>
+      <td>${day.wind_speed} м/с</td>
+    `;
+    table.appendChild(row);
+  });
+}
+
+// Часы
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleString('ru-RU', { weekday: 'short', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Таймер до конца дня
+function updateTimer() {
+  const now = new Date();
+  const end = new Date();
+  end.setHours(23, 59, 59, 999);
+  const diff = Math.floor((end - now) / 1000);
+  const h = Math.floor(diff / 3600);
+  const m = Math.floor((diff % 3600) / 60);
+  const s = diff % 60;
+  document.getElementById('timer').textContent = `До конца дня осталось: ${h} ч ${m} мин ${s} сек`;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+
+getWeather();
+</script>
+
+</body>
+</html>
