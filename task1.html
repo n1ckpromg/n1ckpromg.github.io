@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Задание</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+  font-family: sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.box {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Дополнительно: размещение таблицы и списков с flex */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+ul, ol {
+  padding-left: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box">
+      <h2>Список покупок</h2>
+      <ul>
+        <li>Хлеб</li>
+        <li>Молоко</li>
+        <li>Яйца</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h2>Этапы проекта</h2>
+      <ol>
+        <li>Планирование</li>
+        <li>Разработка</li>
+        <li>Тестирование</li>
+      </ol>
+    </div>
+
+    <div class="box">
+      <h2>Таблица участников</h2>
+      <table>
+        <tr>
+          <th>Имя</th>
+          <th>Роль</th>
+        </tr>
+        <tr>
+          <td>Анна</td>
+          <td>Дизайнер</td>
+        </tr>
+        <tr>
+          <td>Иван</td>
+          <td>Разработчик</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

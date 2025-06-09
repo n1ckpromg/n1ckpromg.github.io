@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Лабораторная работа 4</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      padding: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .task {
+      margin: 20px 0;
+      padding: 20px;
+      border: 2px solid #333;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .centered-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      border: 2px dashed #888;
+    }
+
+    .spaced-box {
+      margin: 30px;
+      padding: 20px;
+      border: 2px solid #0099cc;
+    }
+
+    .bordered-box {
+      border: 5px double #ff6600;
+      padding: 15px;
+    }
+
+    .funny-box {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 20px;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: white;
+      border-radius: 8px;
+      animation: wiggle 1s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+      0%   { transform: rotate(0deg); }
+      25%  { transform: rotate(2deg); }
+      50%  { transform: rotate(-2deg); }
+      75%  { transform: rotate(2deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .wrap-section {
+      margin-top: 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .circle-image {
+      float: left;
+      shape-outside: circle();
+      clip-path: circle();
+      width: 160px;
+      height: 160px;
+      margin: 0 20px 20px 0;
+    }
+
+    .wrap-text {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    .highlight {
+      background: yellow;
+      font-weight: bold;
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Лабораторная работа 4</h1>
+
+  <div class="task centered-box">
+    <p>1. Я по центру!</p>
+  </div>
+
+  <div class="task spaced-box">
+    2. У меня внешние и внутренние отступы.
+  </div>
+
+  <div class="task bordered-box">
+    3. У меня рамка!
+  </div>
+
+  <div class="task">
+    4. Что-нибудь прикольное: <div class="funny-box">🌈 Танцуй!</div>
+  </div>
+
+  <div class="task">
+    <p class="highlight">Блиц: Сделать обтекание текстом ➡➡➡</p>
+    <div class="wrap-text">
+      <img src="https://via.placeholder.com/160" class="circle-image" alt="placeholder" />
+      <p>
+        Это пример текста, который обтекает изображение. Благодаря свойствам CSS shape-outside и clip-path, можно создать красивый эффект обтекания по кругу. Можно продолжить добавлять абзацы и наблюдать, как текст обтекает заданную форму. Очень удобно и креативно!
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
